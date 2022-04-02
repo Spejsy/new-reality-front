@@ -1,10 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  const [data, setData] = useState('No data');
+
+  const handlePress = () => {
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => setData(JSON.stringify(json)))
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Text>{data}</Text>
+      <Button
+        onPress={handlePress}
+        title="Load from api"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
       <StatusBar style="auto" />
     </View>
   );
@@ -13,7 +28,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#7d7d7d',
     alignItems: 'center',
     justifyContent: 'center',
   },
